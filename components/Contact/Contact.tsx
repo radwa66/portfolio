@@ -28,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 px-6 py-24">
+    <section id="contact" className="scroll-mt-24 px-6 py-24  border-t  border-white/10">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
         {/* Left Content */}
         <div className="flex flex-col justify-center md:items-start items-center">
