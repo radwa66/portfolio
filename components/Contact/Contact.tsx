@@ -9,6 +9,7 @@ import ContactInfo from "./ContactInfo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, ContactFormData } from "@/lib/contact-schema";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const {
@@ -21,27 +22,28 @@ export default function Contact() {
     mode: "onTouched",
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      const response = await fetch("/functions/api/contact.ts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+ const onSubmit = async (
+  data: ContactFormData
+) => {
+  try {
+    await emailjs.send(
+      "service_mbsai03",
+      "template_v4yqryd",
+      {
+        from_name: data.name,
+        from_email: data.email,
+        message: data.message,
+      },
+      "4Kmh6oX1Lb9spd3QT"
+    );
 
-      if (!response.ok) {
-        throw new Error();
-      }
+    reset();
 
-      reset();
-
-      alert("Message sent!");
-    } catch {
-      alert("Failed to send message");
-    }
-  };
+    alert("Message sent!");
+  } catch {
+    alert("Failed to send message");
+  }
+};
 
   return (
     <section
