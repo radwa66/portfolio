@@ -16,11 +16,12 @@
     "plugins": [
       {
         "name": "next"
-        
+
       }
     ],
     "paths": {
       "@/*": ["./*"]
+      
     }
   },
   "include": [
