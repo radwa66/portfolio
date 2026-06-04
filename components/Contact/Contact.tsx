@@ -22,13 +22,32 @@ export default function Contact() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log(data);
-    // send form later
-    reset();
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      reset();
+
+      alert("Message sent!");
+    } catch {
+      alert("Failed to send message");
+    }
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 px-6 py-24  border-t  border-white/10">
+    <section
+      id="contact"
+      className="scroll-mt-24 px-6 py-24  border-t  border-white/10"
+    >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2">
         {/* Left Content */}
         <div className="flex flex-col justify-center md:items-start items-center">

@@ -30,7 +30,7 @@ const technicalSkills = [
     percentage: 95,
   },
   {
-    name: "UI / UX",
+    name: "Pugjs",
     percentage: 85,
   },
 ];
@@ -95,9 +95,10 @@ export default function About() {
           {/* CV Button */}
           <div className="mt-8">
             <Button
-              href="/Radwa-Mohamed-CV.pdf"
-              variant="secondary"
+              href="/files/cv.pdf"
+              variant="primary"
               ariaLabel="Download Radwa Mohamed CV"
+              download
             >
               Download CV
             </Button>
@@ -106,7 +107,7 @@ export default function About() {
 
         {/* Right Technical Skills */}
     
-<div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:p-8">
+<div className="rounded-4xl border border-white/10 bg-white/5 p-6 backdrop-blur-md sm:p-8">
   <div className="mb-8">
     <h3 className="text-2xl font-semibold text-white">
       Technical Skills

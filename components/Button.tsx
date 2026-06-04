@@ -8,6 +8,7 @@ type ButtonProps = {
   ariaLabel?: string;
   className?: string;
   target?: string;
+  download?: boolean;
 };
 
 export default function Button({
@@ -16,6 +17,7 @@ export default function Button({
   variant = "primary",
   ariaLabel,
   target,
+  download ,
   className = "",
 }: ButtonProps) {
   const baseStyles =
@@ -32,6 +34,7 @@ export default function Button({
     <Link
       href={href}
       target={target}
+      download={download}
       aria-label={ariaLabel}
       className={`${baseStyles} ${variants[variant]} ${className}`}
     >
