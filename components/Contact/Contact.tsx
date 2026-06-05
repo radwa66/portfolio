@@ -9,7 +9,6 @@ import ContactInfo from "./ContactInfo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, ContactFormData } from "@/lib/contact-schema";
-import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const {
@@ -26,25 +25,44 @@ export default function Contact() {
   data: ContactFormData
 ) => {
   try {
-    await emailjs.send(
-      "service_mbsai03",
-      "template_ivc50hi",
-      {
-        from_name: data.name,
-        from_email: data.email,
-        message: data.message,
-      },
-      "4Kmh6oX1Lb9spd3QT"
-    );
+    const response =
+      await fetch(
+        "/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            message:
+              data.message,
+          }),
+        }
+      );
+
+    const result =
+      await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.error
+      );
+    }
 
     reset();
 
     alert("Message sent!");
-  } catch {
-    alert("Failed to send message");
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      "Failed to send message"
+    );
   }
 };
-
   return (
     <section
       id="contact"
