@@ -9,7 +9,7 @@ import ContactInfo from "./ContactInfo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, ContactFormData } from "@/lib/contact-schema";
-
+import { toast } from "sonner";
 export default function Contact() {
   const {
     register,
@@ -21,48 +21,42 @@ export default function Contact() {
     mode: "onTouched",
   });
 
- const onSubmit = async (
-  data: ContactFormData
-) => {
-  try {
-    const response =
-      await fetch(
-        "/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            message:
-              data.message,
-          }),
-        }
-      );
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        }),
+      });
 
-    const result =
-      await response.json();
+      const result = await response.json();
 
-    if (!response.ok) {
-      throw new Error(
-        result.error
-      );
-    }
+      if (!response.ok) {
+        throw new Error(result.error);
+      }
 
-    reset();
+      reset();
+      toast.success("Message sent successfully!", {
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+    } catch (error) {
+      console.error(error);
 
-    alert("Message sent!");
-  } catch (error) {
-    console.error(error);
-
-    alert(
-      "Failed to send message"
+        toast.error(
+      "Failed to send message",
+      {
+        description:
+          "Please try again later.",
+      }
     );
-  }
-};
+    }
+  };
   return (
     <section
       id="contact"

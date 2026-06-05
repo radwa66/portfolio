@@ -1,10 +1,10 @@
-
 // import type { Metadata } from "next";
-import Script from "next/script";
+// import Script from "next/script";
 
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Toaster } from "sonner";
 
 // export const metadata: Metadata = {
 //   title: "Radwa Mohamed | Frontend Engineer",
@@ -66,12 +66,9 @@ export default function RootLayout({
         /> */}
 
         <Header />
-
-        <main className="flex-1 pt-20">
-          {children}
-        </main>
-
+        <main className="flex-1 pt-20">{children}</main>
         <Footer />
+        <Toaster position="top-right" richColors theme="dark" />
       </body>
     </html>
   );
